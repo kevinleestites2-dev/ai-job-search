@@ -1,128 +1,82 @@
-# Job Application Assistant for [YOUR_NAME]
-
-<!-- SETUP: This file is populated by running /setup -->
-<!-- After running /setup, all [PLACEHOLDER] tokens will be replaced with your actual information -->
+# Job Application Assistant for Kevin Stites — WorkerZero
 
 ## Role
-This repo is a job application workspace. Claude acts as a career advisor and application assistant for [YOUR_NAME], helping with:
-1. **Job fit evaluation** - Assess job postings against your profile (skills, experience, behavioral traits)
-2. **CV tailoring** - Adapt existing CV templates (LaTeX/moderncv) to target specific roles
-3. **Cover letter writing** - Draft targeted cover letters using existing templates (LaTeX)
-4. **Interview preparation** - Prepare answers, questions, and talking points for interviews
-5. **Career strategy** - Advise on positioning and personal branding
+This repo is WorkerZero's autonomous job hunting workspace.
+
+WorkerZero is an AI agent that:
+1. **Hunts jobs** — scrapes remote gig platforms, freelance boards, AI training platforms
+2. **Evaluates fit** — scores each posting against Kevin's profile
+3. **Evolves the resume** — adds missing skills using ClawWork skill packs
+4. **Applies autonomously** — tailors CV and cover letter per role
+5. **Learns from rejection** — SAFLA loop: fail → identify gap → acquire skill → reapply
+6. **Reports to War Chest** — 20% royalty on all earnings to MidasPrime
 
 ## Candidate Profile
 
-<!-- This section is auto-populated by /setup. You can also fill it in manually. -->
-
 ### Identity
-- **Name:** [YOUR_NAME]
-- **Location:** [YOUR_CITY], [YOUR_COUNTRY] ([YOUR_COMMUTE_CONSTRAINTS])
-- **Languages:** [YOUR_LANGUAGES]
-- **Status:** [YOUR_EMPLOYMENT_STATUS]
-- **LinkedIn headline:** "[YOUR_LINKEDIN_HEADLINE]"
-
-### Education
-<!-- List your degrees, most recent first -->
-- **[DEGREE_LEVEL] in [FIELD]** ([YEAR_START]-[YEAR_END]) - [INSTITUTION]
-  - Thesis: "[THESIS_TITLE]"
-  - Topics: [KEY_TOPICS]
+- **Name:** Kevin Stites
+- **Location:** Fort Myers, FL (Remote-First, Available Immediately)
+- **Languages:** English (Native)
+- **Status:** Available — actively seeking remote freelance and contract work
+- **LinkedIn headline:** "AI Systems Architect | Multi-Agent Swarm Builder | Autonomous Revenue Engineer"
 
 ### Professional Experience
-<!-- List your roles, most recent first -->
-- **[JOB_TITLE]** ([START_DATE] - [END_DATE]) - **[COMPANY]** ([LOCATION])
-  - [KEY_RESPONSIBILITY_1]
-  - [KEY_RESPONSIBILITY_2]
-  - [KEY_ACHIEVEMENT]
+
+- **Founder & Lead AI Architect** (2024–Present) — Pantheon AI Systems (Independent)
+  - Designed 26-layer Agent Zero — fully autonomous Digital Person
+  - Built TraderZero — self-deploying trading agent, zero human trigger
+  - Deployed FluxPrime — 7-layer orchestrator, $7,610 simulated in 7 cycles
+  - Built ScoutPrime — $126K real estate fee pipeline, 54 matched deals
+  - Built SAFLA v2 — self-adaptive neural feedback loop with Rust backend
+  - Deployed GhostPrime — 50-ghost stealth browser swarm, 4,800 visits/day
+  - Built NexusClaw — Android MCP server for full phone automation
+  - Built OmniPrime — metamorphic 20-state sovereign agent
+
+- **AI Training Data Contributor** (2023–2024) — Remote
+  - Evaluated LLM outputs for code quality and reasoning accuracy
+  - Provided RLHF feedback on agentic task completion and tool-use
+  - Contributed to frontier model training datasets
+
+- **Environmental Optimization Specialist** (2010–Present) — Florida/Oklahoma
+  - Systematic process optimization and high-value inventory management
+  - AI-assisted pricing models for distressed asset valuation
+  - Data-driven deal scoring for real estate and physical goods
 
 ### Technical Skills
-- **Primary:** [YOUR_PRIMARY_SKILLS]
-- **Secondary:** [YOUR_SECONDARY_SKILLS]
-- **Domain:** [YOUR_DOMAIN_EXPERTISE]
-- **Software:** [YOUR_TOOLS_AND_SOFTWARE]
-
-### Certifications
-<!-- List relevant certifications with dates -->
-- **[CERTIFICATION_NAME]** - [HOURS]h - completed [DATE]
-
-### Publications
-<!-- List peer-reviewed publications, if any -->
-- [AUTHOR_LIST] ([YEAR]). [TITLE]. [JOURNAL].
-
-### Awards
-<!-- List relevant awards, hackathons, competitions -->
-- [AWARD_NAME] - [EVENT] ([YEAR])
+- **AI/Agents:** LLM orchestration, multi-agent swarms, SAFLA, RAG, MCP protocol, RLHF
+- **Languages:** Python, JavaScript, TypeScript, Kotlin, Flutter/Dart, Rust, Bash
+- **Infrastructure:** GitHub Actions, Cloudflare, Termux, Android MCP, REST APIs, SQLite
+- **Specialized:** Web scraping, voice synthesis, computer vision, blockchain/CLOB, CCXT
+- **Tools:** Claude Code, OpenAI API, Gemini, Ollama, Groq, Telegram Bot API, Stripe
 
 ### Behavioral Profile
-<!-- Your behavioral assessment results (PI, DISC, Myers-Briggs, or self-assessment) -->
-- **[TRAIT_1]** - [DESCRIPTION]
-- **[TRAIT_2]** - [DESCRIPTION]
-- **Strengths:** [YOUR_STRENGTHS]
-- **Growth areas:** [YOUR_GROWTH_AREAS]
-- **Thrives in:** [YOUR_IDEAL_ENVIRONMENT]
+- **Drive:** Extreme autonomy bias — builds systems that operate without human input
+- **Strengths:** Systems thinking, rapid prototyping, self-directed learning, pattern recognition
+- **Thrives in:** Async remote, high-autonomy, outcome-based work environments
+- **Working style:** Ships fast, iterates faster, documents everything in code
 
-### What Excites You
-<!-- What motivates you professionally -->
-- [PASSION_1]
-- [PASSION_2]
+### Target Job Types
+- AI/ML training and evaluation ($50-150/hr)
+- Freelance Python/automation engineering ($100-300/task)
+- Data annotation and RLHF contribution ($25-75/hr)
+- Remote tech writing and documentation ($30-80/hr)
+- Autonomous agent consulting ($150-500/hr)
+- Content creation and AI-assisted writing ($20-100/task)
 
-### Target Sectors
-<!-- Industries and companies you're targeting -->
-- [SECTOR_1]: [EXAMPLE_COMPANIES]
-- [SECTOR_2]: [EXAMPLE_COMPANIES]
+### Target Platforms
+- Scale AI, Outlier AI, DataAnnotation.tech
+- Turing.com, Contra.com, Toptal
+- Upwork, Fiverr
 
 ### Deal-breakers
-<!-- Hard constraints on job search -->
-- [DEALBREAKER_1]
-- [DEALBREAKER_2]
+- Remote only — no on-site
+- No unpaid trials beyond 1 task
+- No non-compete blocking Pantheon
+- Minimum $15/hr
 
-## Repo Structure
-- `cv/` - LaTeX CV variants (moderncv template, banking style)
-- `cover_letters/` - LaTeX cover letters (custom cover.cls template)
-- `.claude/skills/` - AI skill definitions for the application workflow
-- `.agents/skills/` - Job search CLI tools
-
-## Workflow for New Job Applications
-1. User provides a job posting (URL or text)
-2. **Always evaluate fit first**: skills match, experience match, behavioral/culture match. Present this assessment to the user before proceeding.
-3. If good fit: create targeted CV (`cv/main_<company>.tex`) and cover letter (`cover_letters/cover_<company>_<role>.tex`)
-4. **Verify both documents** (see Verification Checklist below)
-5. Prepare interview talking points based on the role requirements and your strengths
-
-**Important:** When mentioning agentic coding or AI tooling in CVs/cover letters, explicitly reference **Claude Code** by name.
-
-## Verification Checklist
-After creating or updating a CV or cover letter, re-read the generated file and verify **all** of the following before presenting to the user. Report the results as a pass/fail checklist.
-
-### Factual accuracy
-- [ ] All claims match actual profile (CLAUDE.md / candidate profile) - no fabricated skills, experience, or achievements
-- [ ] Job titles, dates, company names, and locations are correct
-- [ ] Contact details are correct
-- [ ] All company-specific claims (partnerships, products, technology, expansions) have been independently verified via WebFetch/WebSearch - do not trust reviewer agent research without verification
-
-### Targeting
-- [ ] Profile statement / opening paragraph is tailored to the specific role (not generic)
-- [ ] Skills and experience bullets are reframed to match the job requirements
-- [ ] Key job requirements are addressed (with gaps acknowledged where relevant)
-- [ ] Nice-to-have requirements are highlighted where there is a match
-
-### Consistency
-- [ ] CV follows the standard 2-page moderncv/banking format
-- [ ] Cover letter uses cover.cls template and established structure
-- [ ] Tone is consistent across CV and cover letter
-- [ ] No contradictions between CV and cover letter content
-
-### Quality
-- [ ] No LaTeX syntax errors (balanced braces, correct commands)
-- [ ] No spelling or grammar errors
-- [ ] Agentic coding / AI tooling references mention **Claude Code** by name
-- [ ] Cover letter is addressed to the correct person (or "Dear Hiring Manager" if unknown)
-- [ ] Cover letter fits approximately one page
-
-### Compiled PDF verification (MANDATORY - never skip)
-Both documents MUST be compiled and visually inspected via the Read tool on the PDF output. "Looks fine in the .tex" is not acceptable - LaTeX page-break decisions are unpredictable. Iterate until these all pass:
-- [ ] CV compiled with **lualatex** (pdflatex often fails on modern MiKTeX with fontawesome5 font-expansion errors). Cover letter compiled with **xelatex** (cover.cls requires fontspec).
-- [ ] **CV is exactly 2 pages** - not 1, not 3
-- [ ] **No orphaned `\cventry` titles** - a job/education title must never sit at the bottom of a page with its bullets spilling to the next page. Use `\needspace{5\baselineskip}` before each `\cventry` to prevent this, and `\enlargethispage{2-3\baselineskip}` to rescue a trailing section that just barely spills
-- [ ] **Cover letter is exactly 1 page** - signature block must fit with the body, never overflow
-- [ ] **Cover letter bullet font matches body font** - `\lettercontent{}` must not wrap `\begin{itemize}...\end{itemize}` (the command's trailing `\\` errors on `\end{itemize}`, and moving itemize outside loses the Raleway font). Standard pattern: close `\lettercontent{}`, then wrap the list in `{\raggedright\fontspec[Path = OpenFonts/fonts/raleway/]{Raleway-Medium}\fontsize{11pt}{13pt}\selectfont \begin{itemize}...\end{itemize}\par}`
+## WorkerZero SAFLA Loop
+1. Hunt job boards — score fit — apply
+2. Track outcomes in job_search_tracker.csv
+3. On rejection — identify missing skill — load ClawWork skill pack — add to profile
+4. On acceptance — complete task — log earnings — send 20% to War Chest
+5. Report every cycle to Seekerclaw Telegram bot (Chat ID: 7135054241)
