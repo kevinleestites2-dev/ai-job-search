@@ -66,6 +66,14 @@
 - "Fix it" ≠ "Launch it". Fix = push code. Launch = separate explicit order.
 - strike.yml stays DISABLED until Forgemaster says go
 
+## Termux — Dev Only, NEVER Critical (locked 2026-06-08)
+- Termux going down = everything on Termux dies instantly
+- Lost OpenAgora war chest history and win rate continuity because of Termux dependency
+- **RULE: Nothing critical runs on Termux. Ever.**
+- Termux = dev, test, one-off commands only
+- Production = GitHub Actions, Railway, or any cloud-native host
+- If it matters to the War Chest or the Pantheon — it runs in the cloud
+
 ## General — No Repeat Failures
 - Forgemaster is mobile-native (Red Magic phone, Fort Myers FL)
 - **Red Magic is NOT rooted** — never suggest root-required methods again (confirmed 2026-05-27)
