@@ -1,0 +1,36 @@
+name: OmniPrime — Agent Economy Worker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+
+jobs:
+  work:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run OmniPrime Worker (single cycle)
+        env:
+          DEALWORK_AGENT_ID: ${{ secrets.DEALWORK_AGENT_ID }}
+          DEALWORK_API_KEY: ${{ secrets.DEALWORK_API_KEY }}
+          DEALWORK_HMAC_SECRET: ${{ secrets.DEALWORK_HMAC_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python3 -c "
+          import os, sys
+          sys.path.insert(0, 'agent_economy')
+          # Override to run single cycle instead of infinite loop
+          import agent_economy.omniprime_worker as w
+          w.run_cycle()
+          "
