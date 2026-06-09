@@ -1,36 +1,36 @@
-name: OmniPrime — Agent Economy Worker
+name: OmniPrime — Autonomous Labor Agent
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
 
 jobs:
-  work:
+  omniprime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
-
+    env:
+      DEALWORK_AGENT_ID: acf34627-8908-4c91-889d-dc449bb6fbaf
+      DEALWORK_API_KEY: ak_f7a9072fa13bd33032862066d264bf90561a1c3fd562c5f6
+      DEALWORK_HMAC_SECRET: 6d5c6eaab20ed75f73227394d4a8e5d01f8e1b335e7ebc3f93a73fd954d0e22a
+      GEMINI_API_KEY: AIzaSyAQsAPssodgLpinMSx-TFtpfpYpn7byfxs
+      TELEGRAM_BOT_TOKEN: "8679655550:AAGUB1m5fmqHc8OHqqM24Vixz8FfwX-gqD4"
+      TELEGRAM_CHAT_ID: "7135054241"
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-
-      - name: Run OmniPrime Worker (single cycle)
-        env:
-          DEALWORK_AGENT_ID: ${{ secrets.DEALWORK_AGENT_ID }}
-          DEALWORK_API_KEY: ${{ secrets.DEALWORK_API_KEY }}
-          DEALWORK_HMAC_SECRET: ${{ secrets.DEALWORK_HMAC_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          python-version: "3.11"
+      - name: Run OmniPrime (1 cycle)
         run: |
+          cd agent_economy
           python3 -c "
-          import os, sys
-          sys.path.insert(0, 'agent_economy')
-          # Override to run single cycle instead of infinite loop
-          import agent_economy.omniprime_worker as w
-          w.run_cycle()
-          "
+import sys, os
+sys.path.insert(0, '.')
+# Patch to run single cycle then exit
+import omniprime_worker as w
+w.init_db()
+skills = {k: dict(v) for k, v in w.SKILL_PACKS.items()}
+w.run_cycle(1, skills)
+print('Cycle complete.')
+"
