@@ -1,4 +1,4 @@
-name: OmniPrime — Autonomous Labor Agent
+name: WorkerZero — Autonomous Labor Bot
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  omniprime:
+  workerzero:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
@@ -21,16 +21,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run OmniPrime (1 cycle)
+      - name: Install deps
+        run: pip install requests
+      - name: Run WorkerZero (1 cycle)
         run: |
-          cd agent_economy
           python3 -c "
 import sys, os
 sys.path.insert(0, '.')
-# Patch to run single cycle then exit
-import omniprime_worker as w
+import worker_zero_main as w
 w.init_db()
 skills = {k: dict(v) for k, v in w.SKILL_PACKS.items()}
 w.run_cycle(1, skills)
-print('Cycle complete.')
+print('WorkerZero cycle complete.')
 "
