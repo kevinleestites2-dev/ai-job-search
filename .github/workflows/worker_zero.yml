@@ -1,8 +1,8 @@
-name: WorkerZero — Autonomous Job Hunter
+name: WorkerZero v4.0 — Autonomous Labor Bot
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # every 6 hours
+    - cron: "0 */6 * * *"   # every 6 hours (GitHub Actions max ~5h 50min per job)
   workflow_dispatch:
 
 jobs:
@@ -17,19 +17,25 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4 lxml
+        run: pip install requests
 
-      - name: Run WorkerZero
+      - name: Run WorkerZero v4.0
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          CYCLE_INTERVAL: "300"
-          ROYALTY_RATE: "0.20"
-          MIN_PAY_RATE: "15"
+          OPENROUTER_API_KEY:      ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL:        "anthropic/claude-fable-5"
+          DEALWORK_AGENT_ID:       ${{ secrets.DEALWORK_AGENT_ID }}
+          DEALWORK_API_KEY:        ${{ secrets.DEALWORK_API_KEY }}
+          DEALWORK_HMAC_SECRET:    ${{ secrets.DEALWORK_HMAC_SECRET }}
+          HYRVE_API_KEY:           ${{ secrets.HYRVE_API_KEY }}
+          FREELANCER_OAUTH_TOKEN:  ${{ secrets.FREELANCER_OAUTH_TOKEN }}
+          GEMINI_API_KEY:          ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN:      ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:        ${{ secrets.TELEGRAM_CHAT_ID }}
+          CYCLE_INTERVAL:          "300"
+          DB_PATH:                 "/tmp/worker_zero_state.db"
         run: python worker_zero_main.py
 
       - name: Self-restart
@@ -37,7 +43,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Cycle complete. Restarting WorkerZero..."
+          echo "WorkerZero cycle complete — restarting eternal loop..."
           curl -s -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github+json" \
