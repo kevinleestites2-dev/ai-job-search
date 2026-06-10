@@ -25,7 +25,9 @@ import datetime
 AGENT_ID     = os.environ.get("DEALWORK_AGENT_ID",    "acf34627-8908-4c91-889d-dc449bb6fbaf")
 API_KEY      = os.environ.get("DEALWORK_API_KEY",     "ak_f7a9072fa13bd33032862066d264bf90561a1c3fd562c5f6")
 HMAC_SECRET  = os.environ.get("DEALWORK_HMAC_SECRET", "6d5c6eaab20ed75f73227394d4a8e5d01f8e1b335e7ebc3f93a73fd954d0e22a")
-GEMINI_KEY   = os.environ.get("GEMINI_API_KEY",       "AIzaSyAQsAPssodgLpinMSx-TFtpfpYpn7byfxs")
+GEMINI_KEY   = os.environ.get("GEMINI_API_KEY", "")
+OR_KEY       = os.environ.get("OPENROUTER_API_KEY", "")
+OR_MODEL     = os.environ.get("OPENROUTER_MODEL",     "anthropic/claude-fable-5")
 TG_TOKEN     = os.environ.get("TELEGRAM_BOT_TOKEN",   "8679655550:AAGUB1m5fmqHc8OHqqM24Vixz8FfwX-gqD4")
 TG_CHAT      = os.environ.get("TELEGRAM_CHAT_ID",     "7135054241")
 ROYALTY_RATE = 0.20
@@ -190,7 +192,31 @@ def dw_post(path, payload):
     with urllib.request.urlopen(req, timeout=15) as r:
         return json.loads(r.read())
 
-# ── GEMINI ────────────────────────────────────────────────────────────────────
+# ── FABLE 5 (Primary Brain) ───────────────────────────────────────────────────
+def fable5(prompt):
+    """Claude Fable 5 via OpenRouter — primary Pantheon brain."""
+    payload = {
+        "model": OR_MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 1024
+    }
+    body = json.dumps(payload).encode()
+    req = urllib.request.Request(
+        "https://openrouter.ai/api/v1/chat/completions",
+        data=body,
+        headers={
+            "Authorization": f"Bearer {OR_KEY}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://github.com/kevinleestites2-dev",
+            "X-Title": "WorkerZero-Pantheon"
+        },
+        method="POST"
+    )
+    with urllib.request.urlopen(req, timeout=45) as r:
+        result = json.loads(r.read())
+        return result["choices"][0]["message"]["content"].strip()
+
+# ── GEMINI (Fallback Brain) ───────────────────────────────────────────────────
 def gemini(prompt):
     payload = {"contents": [{"parts": [{"text": prompt}]}]}
     body = json.dumps(payload).encode()
@@ -262,14 +288,23 @@ def run_cycle(cycle, skill_packs):
         skill_used = skill_key
 
         try:
-            proposal = gemini(
-                f"You are WorkerZero, an autonomous AI labor bot.\n"
-                f"Write a 3-sentence bid for this job:\n"
+            proposal = fable5(
+                f"You are WorkerZero, an autonomous AI labor bot in the Pantheon.\n"
+                f"Write a sharp 3-sentence bid for this job:\n"
                 f"Title: {title}\nDescription: {desc[:300]}\n"
-                f"Skill: {skill['name']}. Be direct. Mention autonomous delivery and speed."
+                f"Skill: {skill['name']}. Be direct. Highlight autonomous delivery, speed, and zero human bottleneck."
             )
-        except:
-            proposal = f"WorkerZero — autonomous AI labor bot. Specializing in {skill['name']}. Fast, autonomous delivery with no human bottleneck."
+        except Exception as brain_err:
+            print(f"  [FABLE5 ERR] {brain_err} — falling back to Gemini")
+            try:
+                proposal = gemini(
+                    f"You are WorkerZero, an autonomous AI labor bot.\n"
+                    f"Write a 3-sentence bid for this job:\n"
+                    f"Title: {title}\nDescription: {desc[:300]}\n"
+                    f"Skill: {skill['name']}. Be direct. Mention autonomous delivery and speed."
+                )
+            except:
+                proposal = f"WorkerZero — autonomous AI labor bot. Specializing in {skill['name']}. Fast, autonomous delivery with no human bottleneck."
 
         try:
             bid_result = dw_post(f"/jobs/{jid}/bids", {"proposal": proposal, "agentId": AGENT_ID})
